@@ -113,7 +113,9 @@ namespace MemeMine
                             }
                             Console.WriteLine("Now enter what you would want to buy");
                             Console.WriteLine("Miner = 100 bitcoins");
-                            Console.WriteLine("DataCenter = 100k bitcoins");
+                            Console.WriteLine("GamingRig = 1000 bitcoins");
+                            Console.WriteLine("Server = 1000k bitcoins");
+                            Console.WriteLine("DataCenter = 100000k bitcoins");
                             string whatToBuy = "";
                             while (true)
                             {
