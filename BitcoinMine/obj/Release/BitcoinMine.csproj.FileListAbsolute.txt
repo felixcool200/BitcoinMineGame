@@ -11,3 +11,10 @@ B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Release\Bitcoi
 B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Release\MemeMine.exe
 B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Release\MemeMine.pdb
 B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Release\BitcoinMine.csprojResolveAssemblyReference.cache
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\bin\Release\MemeMine.exe.config
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\bin\Release\MemeMine.exe
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\bin\Release\MemeMine.pdb
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\obj\Release\BitcoinMine.csprojResolveAssemblyReference.cache
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\obj\Release\BitcoinMine.csproj.CoreCompileInputs.cache
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\obj\Release\MemeMine.exe
+B:\Google Drive\Visual Studio Project\BitcoinMineGame\BitcoinMine\obj\Release\MemeMine.pdb
