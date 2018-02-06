@@ -1,0 +1,7 @@
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\bin\Debug\MemeMine.exe.config
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\bin\Debug\MemeMine.exe
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\bin\Debug\MemeMine.pdb
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Debug\BitcoinMine.csprojResolveAssemblyReference.cache
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Debug\BitcoinMine.csproj.CoreCompileInputs.cache
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Debug\MemeMine.exe
+B:\Google Drive\Visual Studio Project\BitcoinMine\BitcoinMine\obj\Debug\MemeMine.pdb

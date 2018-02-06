@@ -1,0 +1,7 @@
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\bin\Debug\MemeMine.exe.config
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\bin\Debug\MemeMine.exe
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\bin\Debug\MemeMine.pdb
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\obj\Debug\MemeMine.csprojResolveAssemblyReference.cache
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\obj\Debug\MemeMine.csproj.CoreCompileInputs.cache
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\obj\Debug\MemeMine.exe
+B:\Google Drive\Visual Studio Project\MemeMine\MemeMine\obj\Debug\MemeMine.pdb
