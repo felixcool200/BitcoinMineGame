@@ -14,28 +14,9 @@ namespace MemeMine
             long startTime = DateTime.Now.Ticks;
             long lastClock = 0;
             Random rand = new Random();
-            double bitcoins = 0, miners = 0, gamingrigs = 0, servers = 0, datacenters = 0;
-            int level = 1;
-            string path = Directory.GetCurrentDirectory().ToString();
-            string pathSave = path + @"\save.txt";
+            Values currentsave = new Values();
             try
             {
-                if (!File.Exists(pathSave))
-                {
-                    string[] newSave = new string[4];
-                    for (int i = 0; i < 4; i++)
-                    {
-                        newSave[i] = "0";
-                    }
-                    newSave[4] = "1";
-                    File.WriteAllLines(pathSave, newSave);
-                }
-                bitcoins = double.Parse(File.ReadLines(pathSave).Skip(0).Take(1).First());
-                miners = double.Parse(File.ReadLines(pathSave).Skip(1).Take(1).First());
-                gamingrigs = double.Parse(File.ReadLines(pathSave).Skip(2).Take(1).First());
-                servers = double.Parse(File.ReadLines(pathSave).Skip(3).Take(1).First());
-                datacenters = double.Parse(File.ReadLines(pathSave).Skip(4).Take(1).First());
-                level = int.Parse(File.ReadLines(pathSave).Skip(5).Take(1).First());
                 startText();
             }
             catch
@@ -46,11 +27,11 @@ namespace MemeMine
             }
             while (true)
             {
-                saveMethod(ref bitcoins, ref miners, ref gamingrigs, ref servers, ref datacenters, ref level, ref pathSave);
+                saveMethod(currentsave);
                 startTime = DateTime.Now.Ticks;
                 if (startTime >= lastClock + 100000000)
                 {
-                    bitcoins += (miners * 10) + (gamingrigs * 50)+ (servers * 100)+ (datacenters * 500);
+                    currentsave.bitcoins += (currentsave.miners * 10) + (currentsave.gamingrigs * 50)+ (currentsave.servers * 100)+ (currentsave.datacenters * 500);
                     lastClock = startTime;
                 }
 
@@ -58,7 +39,7 @@ namespace MemeMine
 
                 if (input == "")
                 {
-                    Console.WriteLine(bitcoins.ToString());
+                    Console.WriteLine(currentsave.bitcoins.ToString());
                     continue;
                 }
 
@@ -72,6 +53,7 @@ namespace MemeMine
                             Console.WriteLine(":mine = Mine bitcoins");
                             Console.WriteLine(":buy");
                             Console.WriteLine(":bitcoins = Dispaly current amount of bitcoins");
+                            Console.WriteLine("prestige = preside to the next level");
                             Console.WriteLine("save = save current progress (Auto save is enabled)");
                             Console.WriteLine("reset = reset your progress");
                             Console.WriteLine("quit = saves then exits the application");
@@ -79,16 +61,41 @@ namespace MemeMine
                             break;
                         //Display
                         case ":bitcoins":
-                            Console.WriteLine("Your amount of bitcoins are : " + bitcoins.ToString());
-                            Console.WriteLine("Your amount of miners are : " + miners.ToString());
-                            Console.WriteLine("Your amount of fracker are : " + datacenters.ToString());
-                            Console.WriteLine("Your level are : " + level.ToString());
+                            Console.WriteLine("Your amount of bitcoins are : " + currentsave.bitcoins.ToString());
+                            Console.WriteLine("Your amount of miners are : " + currentsave.miners.ToString());
+                            Console.WriteLine("Your amount of gamingrigs are : " + currentsave.gamingrigs.ToString());
+                            Console.WriteLine("Your amount of servers are : " + currentsave.servers.ToString());
+                            Console.WriteLine("Your amount of datacenters are : " + currentsave.datacenters.ToString());
+                            Console.WriteLine("Your level are : " + currentsave.level.ToString());
                             break;
                         //Mine
                         case ":mine":
                             double newbitcoins = rand.Next(1, 100);
-                            bitcoins += newbitcoins;
+                            currentsave.bitcoins += newbitcoins;
                             Console.WriteLine("You found :" + (newbitcoins).ToString() + " bitcoins.");
+                            break;
+                        case "prestige":
+                            if (currentsave.miners >= currentsave.level * 100)
+                            {
+                                if (currentsave.gamingrigs >= currentsave.level * 100)
+                                {
+                                    if (currentsave.servers >= currentsave.level * 100)
+                                    {
+                                        if (currentsave.datacenters >= currentsave.level * 100)
+                                        {
+                                            reset();
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Your amount of miners are " + currentsave.miners.ToString() + " you need another " + (currentsave.level * 100 - currentsave.miners).ToString() + " to prestige");
+                                Console.WriteLine("Your amount of gamingrigs are " + currentsave.gamingrigs.ToString() + " you need another " + (currentsave.level * 100 - currentsave.gamingrigs).ToString() + " to prestige");
+                                Console.WriteLine("Your amount of servers are " + currentsave.servers.ToString() + " you need another " + (currentsave.level * 100 - currentsave.servers).ToString() + " to prestige");
+                                Console.WriteLine("Your amount of datacenters are " + currentsave.datacenters.ToString() + " you need another " + (currentsave.level * 100 - currentsave.datacenters).ToString() + " to prestige");
+                                Console.WriteLine("Your level are : " + currentsave.level.ToString());
+                            }
                             break;
                         case ":buy":
                             Console.WriteLine("Now enter how many you want to buy (or type max)");
@@ -114,7 +121,7 @@ namespace MemeMine
                             Console.WriteLine("Now enter what you would want to buy");
                             Console.WriteLine("Miner = 100 bitcoins");
                             Console.WriteLine("GamingRig = 1000 bitcoins");
-                            Console.WriteLine("Server = 1000 bitcoins");
+                            Console.WriteLine("Server = 10000 bitcoins");
                             Console.WriteLine("DataCenter = 100000 bitcoins");
                             string whatToBuy = "";
                             while (true)
@@ -133,19 +140,19 @@ namespace MemeMine
                             switch (whatToBuy)
                             {
                                 case "miner":
-                                    buy("miner", ref amount, ref bitcoins, ref amountInput, ref miners, ref gamingrigs, ref servers, ref datacenters);
+                                    buy(currentsave,"miner", ref amount, ref amountInput);
                                     break;
 
                                 case "gamingrig":
-                                    buy("gamingrig", ref amount, ref bitcoins, ref amountInput, ref miners, ref gamingrigs, ref servers, ref datacenters);
+                                    buy(currentsave,"gamingrig", ref amount, ref amountInput);
                                     break;
 
                                 case "server":
-                                    buy("server", ref amount, ref bitcoins, ref amountInput, ref miners, ref gamingrigs, ref servers, ref datacenters);
+                                    buy(currentsave,"server", ref amount, ref amountInput);
                                     break;
 
                                 case "datacenter":
-                                    buy("datacenter", ref amount, ref bitcoins, ref amountInput, ref miners, ref gamingrigs, ref servers, ref datacenters);
+                                    buy(currentsave,"datacenter", ref amount, ref amountInput);
                                     break;
                             }
                             break;
@@ -160,17 +167,11 @@ namespace MemeMine
                     switch (input)
                     {
                         case "save":
-                            saveMethod(ref bitcoins, ref miners, ref gamingrigs, ref servers, ref datacenters, ref level, ref pathSave);
+                            saveMethod(currentsave);
                             Console.WriteLine("Save Complete");
                             continue;
-                        case " ":
-                            for (int i = 0; i < 100; i++)
-                            {
-                                Console.WriteLine();
-                            }
-                            continue;
                         case "quit":
-                            saveMethod(ref bitcoins, ref miners, ref gamingrigs, ref servers, ref datacenters, ref level, ref pathSave);
+                            saveMethod(currentsave);
                             Console.WriteLine("Save Complete");
                             break;
                         case "clear":
@@ -178,12 +179,12 @@ namespace MemeMine
                             startText();
                             continue;
                         case "reset":
-                            File.Delete(pathSave);
-                            bitcoins = 0;
-                            miners = 0;
-                            datacenters = 0;
-                            level = 1;
-                            saveMethod(ref bitcoins, ref miners, ref gamingrigs, ref servers, ref datacenters, ref level, ref pathSave);
+                            File.Delete(currentsave.pathSave);
+                            currentsave.bitcoins = 0;
+                            currentsave.miners = 0;
+                            currentsave.datacenters = 0;
+                            currentsave.level = 1;
+                            saveMethod(currentsave);
                             continue;
                         default:
                             Console.WriteLine("Not a Command");
@@ -195,9 +196,9 @@ namespace MemeMine
             Console.ReadKey();
         }
 
-        public static void saveMethod(ref double bitcoins, ref double miners, ref double gamingrig,ref double server, ref double datacenters, ref int level, ref string pathSave)
+        public static void saveMethod(Values currentsave)
         {
-            if (!File.Exists(pathSave))
+            if (!File.Exists(currentsave.pathSave))
             {
                 string[] newSave = new string[4];
                 for (int i = 0; i < 3; i++)
@@ -205,17 +206,17 @@ namespace MemeMine
                     newSave[i] = "0";
                 }
                 newSave[3] = "1";
-                File.WriteAllLines(pathSave, newSave);
+                File.WriteAllLines(currentsave.pathSave, newSave);
             }
-            string[] savefile = new string[File.ReadLines(pathSave).Count()];
-            savefile = File.ReadAllLines(pathSave);
-            savefile[0] = bitcoins.ToString();
-            savefile[1] = miners.ToString();
-            savefile[2] = gamingrig.ToString();
-            savefile[3] = server.ToString();
-            savefile[4] = datacenters.ToString();
-            savefile[5] = level.ToString();
-            File.WriteAllLines(pathSave, savefile);
+            string[] savefile = new string[File.ReadLines(currentsave.pathSave).Count()];
+            savefile = File.ReadAllLines(currentsave.pathSave);
+            savefile[0] = currentsave.bitcoins.ToString();
+            savefile[1] = currentsave.miners.ToString();
+            savefile[2] = currentsave.gamingrigs.ToString();
+            savefile[3] = currentsave.servers.ToString();
+            savefile[4] = currentsave.datacenters.ToString();
+            savefile[5] = currentsave.level.ToString();
+            File.WriteAllLines(currentsave.pathSave, savefile);
         }
 
         public static void startText()
@@ -238,29 +239,29 @@ namespace MemeMine
             Console.WriteLine("To list the commands type :help");
         }
 
-        public static void buy(string item, ref double amount, ref double  bitcoins, ref string amountInput, ref double miners, ref double gamingrigs, ref double servers, ref double datacenters)
+        public static void buy(Values currentsave,string item, ref double amount, ref string amountInput)
         {
             if (amountInput == "max")
             {
-                amount = bitcoins / price(item);
+                amount = currentsave.bitcoins / price(item);
                 amount = Math.Floor(amount);
             }
-            if (bitcoins >= (price(item) * amount))
+            if (currentsave.bitcoins >= (price(item) * amount))
             {
-                bitcoins -= price(item) * amount;
+                currentsave.bitcoins -= price(item) * amount;
                 switch (item)
                 {
                     case "miners":
-                        miners += amount;
+                        currentsave.miners += amount;
                         break;
                     case "gamingrigs":
-                        gamingrigs += amount;
+                        currentsave.gamingrigs += amount;
                         break;
                     case "servers":
-                        servers += amount;
+                        currentsave.servers += amount;
                         break;
                     case "datacenters":
-                        datacenters += amount;
+                        currentsave.datacenters += amount;
                         break;
 
                 }
@@ -269,11 +270,11 @@ namespace MemeMine
             else
             {
                 Console.Write("You can't afford that becuase you have ");
-                Console.Write(bitcoins.ToString());
+                Console.Write(currentsave.bitcoins.ToString());
                 Console.Write(" bitcoins and you need ");
                 Console.Write((price(item) * amount).ToString());
                 Console.Write(" bitcoins you need to earn ");
-                Console.WriteLine(((price(item) * amount) - bitcoins).ToString());
+                Console.WriteLine(((price(item) * amount) - currentsave.bitcoins).ToString());
             }
         }
 
@@ -292,6 +293,12 @@ namespace MemeMine
                 default:
                     return 0;
             }
+        }
+
+        public static void reset()
+        {
+
+
         }
     }
 
